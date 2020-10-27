@@ -29,6 +29,11 @@ class Application{
             .then(() => {
                 this.enableCors()
                 this.routes( io )
+                http.listen( this.port, () =>{
+                    console.log(`Api rodando da porta ${this.port}`);
+                    
+                })
+                
             })
     }
 
