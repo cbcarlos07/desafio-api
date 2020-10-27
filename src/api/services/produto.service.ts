@@ -3,18 +3,9 @@ import { Produto } from "../model/produto"
 import produtoRepository from "../repository/produto.repository"
 
 class ProdutoService{
-    produto: Produto
-    constructor(produtoDTO: any = null){
-        if( produtoDTO ){
-            if( produtoDTO.id ) produtoDTO.id
-            if( produtoDTO.descricao ) this.produto.descricao = produtoDTO.descricao
-            if( produtoDTO.tags ) this.produto.tags = produtoDTO.tags    
-            this.produto.nome = produtoDTO.nome
-            this.produto.preco = produtoDTO.preco
-            this.produto.status_id = produtoDTO.status_id            
-        } 
-            
-        
+    produto: Produto 
+    constructor(produtoDTO: any = null){        
+        this.produto = produtoDTO       
     }
     create(  ){
         return produtoRepository.create( this.produto )
