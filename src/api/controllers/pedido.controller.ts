@@ -41,7 +41,7 @@ class PedidoController{
         const pedidoService = new PedidoService( req.body )
         pedidoService.update( Number(id) )
                     .then( (response: any) =>{
-                        resp.status(201).json( {msg: 'Pedido atualizdo com sucesso!'} )
+                        resp.status(201).json( response )
                     }).catch( e => {
                     resp.status(204).json( {msg: "Falha ao tentar atualizar pedido!"} )
                     })

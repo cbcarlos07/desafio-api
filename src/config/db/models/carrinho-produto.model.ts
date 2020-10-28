@@ -14,4 +14,6 @@ class CarrinhoProdutoModel extends Model {
     }
 }
 
+
+
 export default CarrinhoProdutoModel

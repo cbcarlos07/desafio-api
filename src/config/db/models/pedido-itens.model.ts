@@ -13,6 +13,16 @@ class PedidoItensModel extends Model {
             sequelize 
         })
     }
+
+    static associate(model){
+        this.removeAttribute("id")
+        this.belongsTo( model,{
+            as: '_produto',
+            foreignKey: 'produto_id'
+        } )
+    }
+
+    
 }
 
 export default PedidoItensModel

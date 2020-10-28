@@ -17,4 +17,11 @@ CarrinhoModel.init( connection )
 CarrinhoProdutoModel.init( connection )
 PedidoModel.init( connection )
 PedidoItensModel.init( connection )
+
+
+
+PedidoModel.associate( StatusModel )
+PedidoItensModel.associate( ProdutoModel )
+ProdutoModel.associate( StatusModel )
+ProdutoModel.associate1( PedidoModel )
 export default connection

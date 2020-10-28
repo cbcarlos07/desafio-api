@@ -3,7 +3,6 @@ import { Pedido } from "../model/pedido";
 import { PedidoItens } from "../model/pedido_itens";
 import PedidoItensModel from "../../config/db/models/pedido-itens.model";
 import ProdutoModel from "../../config/db/models/produto.model";
-import pedidoController from "../controllers/pedido.controller";
 import StatusModel from "../../config/db/models/status.model";
 const { Sequelize } = require("sequelize");
 
@@ -12,26 +11,57 @@ const { Sequelize } = require("sequelize");
 
 
 class PedidoRepository {
+    getItens(id: number) {
+        return PedidoItensModel.findAll({
+            attributes: [
+                [Sequelize.literal('_produto.nome'), 'produto']
+            ],
+            include: [
+                {
+                    association: '_produto',
+                    attributes: []
+                }
+            ],
+            where: {pedido_id: id}
+        })
+    }
 
     create( pedido: Pedido ){
         return PedidoModel.create( pedido )
     }
 
-    addItens( pedidoItens: PedidoItens[] = [] ){
-        PedidoItensModel.removeAttribute("id")
+    addItens( pedidoItens: PedidoItens[] = [] ){        
         return PedidoItensModel.bulkCreate( pedidoItens )
     }
 
     findAll(){
+
+        
+        return PedidoModel.findAll({
+            attributes: [
+                'id', 'dt_criacao','valor_total',
+                [Sequelize.literal('_status.descricao'),'status']
+            ],
+            include: [
+                {
+                    association: '_status',
+                    attributes: []
+                }
+            ],
+            where: {
+                status_id: {[Sequelize.Op.notIn]: [6,7]}
+            }
+        })
       
-        PedidoModel.belongsToMany(
+        /* PedidoModel.belongsToMany(
              ProdutoModel,
              {
                  as: 'produto',
                  through: PedidoItensModel,
                  foreignKey: 'produto_id',
                  
-             }
+             },
+             
              
             )
 
@@ -48,9 +78,9 @@ class PedidoRepository {
                 name:  'status_id'
             },
             as: '_status'
-        } )
+        } ) */
 
-        return PedidoModel.findAll({
+        /*return PedidoModel.findAll({
             attributes: [
                 'id','dt_criacao', 'valor_total',
                 [Sequelize.literal('_status.descricao'),'status'],
@@ -72,49 +102,19 @@ class PedidoRepository {
                 },
                 
 
-            ]
-        })
-        /*
-        PedidoItensModel.removeAttribute("id")
-        PedidoItensModel.belongsTo( ProdutoModel, {
-            foreignKey: {
-                name:  'produto_id'
-            },
-            as: 'produto'
-        } )
-        PedidoItensModel.belongsTo( PedidoModel, {
-            foreignKey: {
-                name:  'pedido_id'
-            },
-            as: 'pedido'
-        } )
-        return PedidoItensModel
-                .findAll({
-                    attributes: [
-                        'pedido_id',
-                        [Sequelize.literal('pedido.dt_criacao'),'dt_criacao'],
-                        [Sequelize.literal('pedido.status'),'status'],
-                        [Sequelize.literal('pedido.valor_total'),'valor_total']
-                    ],
-                    include: [ 
-                        {
-                            model: ProdutoModel, 
-                            attributes: ['nome'], 
-                            as: 'produto'
-                        },
-                        {
-                            model: PedidoModel,
-                            attributes: [],
-                            as: 'pedido'
-                        }],
-                    order: [
-                        ['pedido','dt_criacao','asc']
-                    ]                    
-                })*/
+            ],
+            where: {
+                status_id: {[Sequelize.Op.notIn]: [6,7]}
+            }
+        })*/
     }
 
     update(id: number, pedido: Pedido){
         return PedidoModel.update( pedido, { where: {id}} )
+    }
+
+    findByPk( id: number ){
+        return PedidoModel.findByPk(id);
     }
 
     

@@ -1,10 +1,11 @@
 
 export interface Produto{
     id?: number
-    nome: string
+    nome?: string
     descricao?: string
-    preco: number
+    preco?: number
     imagem?: string
     tags?: string
-    status_id: number    
+    status_id?: number
+    isDeleted?: number
 }

@@ -14,13 +14,17 @@ class ProdutoService{
     }
 
     update(  ){        
+        
         let id = this.produto.id
         delete this.produto.id
         return produtoRepository.update(id, this.produto )
     }
 
-    destroy( id: number ){
-        return produtoRepository.destroy( id )
+    async destroy( id: number ){
+        let produto = await this.findByPk( id )
+        console.log(produto);
+        
+        //return produtoRepository.destroy( id )
     }
 
     findAll(){
@@ -38,7 +42,7 @@ class ProdutoService{
      * Retorna somente produtos ativos
      */
     productForBuy(){
-        return produtoRepository.productForBy()
+        return produtoRepository.productForBuy()
     }
 }
 

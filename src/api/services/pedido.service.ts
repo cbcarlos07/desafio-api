@@ -53,12 +53,67 @@ class PedidoService {
         
     }
 
-    findAll(){
-        return pedidoRepository.findAll()
+     findAll(){
+        return new Promise(async(resolve, reject)=>{
+            let pedidos: any = await pedidoRepository.findAll()
+            let pedidosItens = pedidos.map( async p =>{                
+                
+                let itens = await pedidoRepository.getItens( p.id )
+                
+                let obj = {...p.dataValues, itens: itens.length > 0 ? itens : []}
+                
+                console.log(obj);
+                
+                return obj
+            })
+            let dados = Promise.all( pedidosItens )
+            resolve( dados )
+        })
     }
 
     update( id: number ){
+        return new Promise(async (resolve, reject)=>{
+            pedidoRepository
+                .findByPk(id)
+                .then( async _pedido =>{
+                    
+                    switch (this.pedido.status_id) {
+                        case 7:
+                            await this._update( id )
+                            resolve({msg: 'Pedido atualizado com sucesso!', status: true})
+                            break;
+                        case 4:
+                            if( _pedido.dataValues.status_id == 3 ){
+                                await this._update( id )
+                                resolve({msg: 'Pedido atualizado com sucesso!', status: true})
+                            }else{
+                                resolve({msg: 'Atualização não permitida!', status: false})
+                            }
+                        case 6:
+                            if( _pedido.dataValues.status_id == 5 ){
+                                await this._update( id )
+                                resolve({msg: 'Pedido atualizado com sucesso!', status: true})
+                            }else{
+                                resolve({msg: 'Atualização não permitida!', status: false})
+                            }
+        
+                        break;
+                        default:
+                            resolve({msg: 'Atualização não permitida!', status: false})
+                            break;
+                    }
+                }).catch( e => {
+                    reject()
+                })
+
+
+        })
+        
+    }
+    
+    private _update(id: number){
         return pedidoRepository.update( id, this.pedido )
+
     }
 
 

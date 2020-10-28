@@ -43,6 +43,12 @@ module.exports = {
         onUpdate: 'NO ACTION',
         onDelete: 'NO ACTION',
         defaultValue: 1
+      },
+      isDeleted: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        comment: 'Informa se está removido',
+        defaultValue: 0
       }
     })
   },

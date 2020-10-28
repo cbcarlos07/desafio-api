@@ -1,15 +1,15 @@
+
 import ProdutoModel from "../../config/db/models/produto.model";
 import { Produto } from "../model/produto";
 
 
-
-
+const { Sequelize } = require('sequelize')
 class ProdutoRepository {
 
     /**
      * Retorna somente produtos ativos
      */
-    productForBy() {
+    productForBuy() {
         return ProdutoModel.findAll({
             where: {
                 status_id: 1
@@ -30,7 +30,18 @@ class ProdutoRepository {
     }
 
     findAll(){
-        return ProdutoModel.findAll()
+        return ProdutoModel.findAll({
+            attributes: [
+                'id', 'nome', 'descricao','preco','tags',
+                [Sequelize.literal('_status.descricao'),'status']
+            ],
+            include: [
+                {
+                    association: '_status',
+                    attributes: []
+                }
+            ]
+        })
     }
 
     findByPk( id: number ){
