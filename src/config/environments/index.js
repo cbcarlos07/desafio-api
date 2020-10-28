@@ -6,7 +6,7 @@ module.exports = {
         DATABASE: 'produtos_api',
         PASSWORD: '123',
         HOST: 'localhost',
-        PORT: 3307,
+        PORT: 3306,
         CONNECTIONS: 742, //41: 5754        
     },    
     JWT_SECRET: 'produto'    

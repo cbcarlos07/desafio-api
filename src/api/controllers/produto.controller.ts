@@ -1,28 +1,84 @@
-import { Produto } from "../model/produto"
-import produtoRepository from "../repository/produto.repository"
 
-export default {
-    create: ( produto: Produto ) =>{
-        return produtoRepository.create( produto )
-    },
 
-    update: ( id: number, produto: Produto ) => {
-        return produtoRepository.update(id, produto )
-    },
+import ProdutoService from "../services/produto.service"
 
-    destroy: ( id: number ) => {
-        return produtoRepository.destroy( id )
-    },
+import { Request, Response } from "express";
 
-    findAll: ()=> {
-        return produtoRepository.findAll()
-    },
-
-    findByPk: ( id: number ) => {
-        return produtoRepository.findByPk(id)
-    },
-
-    testConnection: ()=> {
-        return produtoRepository.testConnection()
+class ProdutoController{
+    
+    /**
+     * Criação de produto
+     */
+    create( req: Request, resp: Response ){
+        const produtoService = new ProdutoService( req.body )
+        produtoService.create()
+                      .then( response =>{                         
+                          resp.status(200).json( {msg: "Produto adicionado com sucesso!", id: response.dataValues.id} )
+                      }).catch( e => {
+                        resp.status(204).json( {msg: "Falha ao adicionado produto!"} )
+                      })
     }
+
+    
+    update( req: Request, resp: Response ){
+        const { id } = req.params
+        const produto = req.body
+        produto.id = id
+        const produtoService = new ProdutoService( produto )
+        produtoService.update()
+                      .then( response =>{           
+                          resp.status(200).json( {msg: "Produto atualizado com sucesso!"} )
+                      }).catch( e => {
+                          console.log('e',e);
+                          
+                        resp.status(404).json( {msg: "Falha ao atualizar produto!"} )
+                      })
+    }
+
+    destroy( req: Request, resp: Response ){
+        const { id } = req.params        
+        const produtoService = new ProdutoService(  )
+        produtoService.destroy( Number(id) )
+                      .then( response =>{
+                          resp.status(200).json( {msg: "Produto removido com sucesso!"} )
+                      }).catch( e => {
+                        resp.status(204).json( {msg: "Falha Produto removido!"} )
+                      })
+
+    }
+
+    findAll(req: Request, resp: Response){
+        const produtoService = new ProdutoService(  )
+        produtoService.findAll(  )
+                      .then( response =>{                         
+                          resp.status(200).json( response )
+                      }).catch( e => {
+                        resp.status(204).json( {msg: "Falha em buscar produto!"} )
+                      })
+    }
+
+    findByPk( req: Request, resp: Response ){
+        const produtoService = new ProdutoService(  )
+        produtoService.findByPk( Number( req.params.id ) )
+                      .then( response =>{
+                          resp.status(200).json( response )
+                      }).catch( e => {
+                        resp.status(204).json( {msg: "Falha em buscar produto!"} )
+                      })
+    }
+
+
+    productForBuy( req: Request, resp: Response ){
+        const produtoService = new ProdutoService(  )
+        produtoService.productForBuy(  )
+                      .then( response =>{
+                          resp.status(200).json( response )
+                      }).catch( e => {
+                        resp.status(204).json( {msg: "Falha em buscar produto!"} )
+                      })
+    }
+
+    
 }
+
+export default new  ProdutoController

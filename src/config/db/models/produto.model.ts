@@ -9,7 +9,7 @@ class ProdutoModel extends Model {
             preco: DataTypes.DOUBLE,
             imagem: DataTypes.STRING,
             tags: DataTypes.STRING,
-            status: DataTypes.INTEGER
+            status_id: DataTypes.INTEGER
         }, { 
             tableName: 'produto',
             sequelize 

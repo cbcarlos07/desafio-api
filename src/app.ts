@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors';
 import routerConfig from './routes'
 const environments = require('./config/environments')
+
 class Application{
     app: express.Application
     port: any

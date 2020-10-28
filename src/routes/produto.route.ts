@@ -1,29 +1,18 @@
 import { Router } from 'express'
-import ProdutoService from '../api/services/produto.service'
+import ProdutoController from '../api/controllers/produto.controller'
 
 const router = Router()
 
-router.route('/').post( (req, res, next) =>{
-    let produtoService = new ProdutoService(req.body)
-    let objRetorno =  produtoService.create(  )
-    let obj = {
-        res, 
-        next,
-        objRetorno
-    }
-    returnResponse( obj )
+router.route('/').post( ProdutoController.create )
 
-})
+router.route('/:id').put( ProdutoController.update )
 
+router.route('/:id').delete( ProdutoController.destroy )
 
-const returnResponse = response => {
-    let res = response.res
-    let next = response.next
-    response.objRetorno
-            .then( resp=>{
-                res.json( resp )
-                next()
-            })
-}
+router.route('/:id').get( ProdutoController.findByPk )
+
+router.route('/').get( ProdutoController.findAll )
+
+router.route('/produtos/ativos').get( ProdutoController.productForBuy )
 
 export default router

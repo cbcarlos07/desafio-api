@@ -7,6 +7,21 @@ module.exports = {
         },
         {
           descricao: 'Inativo'
+        },
+        {
+          descricao: 'Novo'
+        },
+        {
+          descricao: 'Aceito'
+        },
+        {
+          descricao: 'Saiu para entrega'
+        },
+        {
+          descricao: 'Entregue'
+        },
+        {
+          descricao: 'Cancelado'
         }], {});
     
   },

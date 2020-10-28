@@ -6,6 +6,17 @@ import { Produto } from "../model/produto";
 
 class ProdutoRepository {
 
+    /**
+     * Retorna somente produtos ativos
+     */
+    productForBy() {
+        return ProdutoModel.findAll({
+            where: {
+                status_id: 1
+            }
+        })
+    }
+
     create( produto: Produto ){
         return ProdutoModel.create( produto )
     }
