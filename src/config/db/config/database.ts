@@ -1,9 +1,6 @@
 
 const environments = require("../../environments")
 
-console.log('env',environments);
-
-
 module.exports = {
     dialect: 'mysql',
     host: environments.DB.HOST,

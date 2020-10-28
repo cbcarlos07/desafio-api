@@ -2,6 +2,7 @@ import CarrinhoModel from "../../config/db/models/carrinho.model";
 import { Carrinho } from "../model/carrinho";
 import { CarrinhoProduto } from "../model/carrinho_produto";
 import CarrinhoProdutoModel from "../../config/db/models/carrinho-produto.model";
+import ProdutoModel from "../../config/db/models/produto.model";
 
 
 
@@ -24,8 +25,16 @@ class CarrinhoRepository {
 
     getCartItens( cartId: number ){
         CarrinhoProdutoModel.removeAttribute("id")
+        CarrinhoProdutoModel.belongsTo( ProdutoModel, {
+            foreignKey: {
+                name:  'produto_id'
+            }
+        } )
         return CarrinhoProdutoModel
-                .findAll({where: {carrinho_id: cartId}})
+                .findAll({
+                    include: [ProdutoModel],
+                    where: {carrinho_id: cartId}
+                })
     }
 
     cleanCart( id: number ){
