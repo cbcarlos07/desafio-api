@@ -1,6 +1,7 @@
 
 const environments = require("../../environments")
-environments
+
+console.log('env',environments);
 
 
 module.exports = {

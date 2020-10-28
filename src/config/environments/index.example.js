@@ -1,6 +1,6 @@
 
 module.exports = {
-    SERVER_PORT: 3002,
+    SERVER_PORT: 3334,
     DB: {
         USERNAME: 'root',
         DATABASE: 'produtos_api',
