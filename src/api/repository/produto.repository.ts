@@ -29,11 +29,8 @@ class ProdutoRepository {
     /**
      * Retorna somente produtos ativos
      */
-    productForBuy(limit: number, page: number ) {
-        
+    productForBuy(limit: number, page: number ) {        
         let offset = 0;
-        
-        
         return new Promise((resolve, reject)=>{
             ProdutoModel
                 .findAndCountAll({

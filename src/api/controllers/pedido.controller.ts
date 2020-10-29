@@ -51,6 +51,17 @@ class PedidoController{
                     })
     }
 
+    paginate(req: Request, resp: Response){
+        const { limit, page } = req.params
+        const pedidoService = new PedidoService( req.body )
+        pedidoService.paginate( +limit, +page )
+                    .then( (response: any) =>{
+                        resp.status(201).json( response )
+                    }).catch( e => {
+                    resp.status(204).json( {msg: "Falha ao tentar atualizar pedido!"} )
+                    })
+    }
+
     
 }
 

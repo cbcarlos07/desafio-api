@@ -10,8 +10,8 @@ module.exports = {
           allowNull: false,
           comment: 'Codigo do carrinho',
           references: { model: 'carrinho', key: 'id' },
-          onUpdate: 'NO ACTION',
-          onDelete: 'NO ACTION'
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE'
         },
         produto_id: {
           type: Sequelize.INTEGER,

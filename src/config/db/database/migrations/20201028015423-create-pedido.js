@@ -49,6 +49,11 @@ module.exports = {
           onUpdate: 'NO ACTION',
           onDelete: 'NO ACTION'
         },
+        taxa_entrega: {
+          type: Sequelize.DOUBLE,
+          allowNull: true,
+          defaultValue: 0
+        },
       });
     
   },

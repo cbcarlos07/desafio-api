@@ -12,7 +12,8 @@ class PedidoModel extends Model {
                 dt_criacao: DataTypes.DATE,
                 valor_total: DataTypes.DOUBLE,
                 status_id: DataTypes.INTEGER,
-                usuario_id: DataTypes.INTEGER
+                usuario_id: DataTypes.INTEGER,
+                taxa_entrega: DataTypes.INTEGER
             }, { 
                 tableName: 'pedido',
                 sequelize 

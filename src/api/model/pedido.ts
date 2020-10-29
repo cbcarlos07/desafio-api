@@ -7,4 +7,5 @@ export interface Pedido{
     valor_total?: number
     status_id: number
     usuario_id: number
+    taxa_entrega?: number
 }

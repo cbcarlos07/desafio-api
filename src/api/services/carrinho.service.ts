@@ -1,7 +1,7 @@
 import { Carrinho } from "../model/carrinho"
 import carrinhoRepository from "../repository/carrinho.repository"
 import { CarrinhoProduto } from "../model/carrinho_produto"
-
+import agendamento from '../../utils/schedule'
 
 class CarrinhoService{
     
@@ -31,8 +31,11 @@ class CarrinhoService{
                         //Se não possui carrinho: adicionar
                                                 
                         carrinhoRepository
+                            
                             .create( {usuario_id: usuario} )
-                            .then( _response =>{                                
+                            .then( async _response =>{
+                                let data = await this.findByPK( _response.dataValues.id )                                
+                                agendamento.configurarLimpeza( data.dataValues )                            
                                 //Após adicionar carrinho, adicionar o produto ao carrinho                                
                                 const id = _response.dataValues.id
                                 carrinhoProduto.carrinho_id = id
@@ -47,6 +50,10 @@ class CarrinhoService{
                 }).catch(e => console.log(e))
         })
         
+    }
+
+    findByPK(id: number){
+        return carrinhoRepository.findByPK( id )
     }
 
     findCart(){

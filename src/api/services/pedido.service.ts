@@ -22,27 +22,30 @@ class PedidoService {
                            Deve trazer os itens do carrinho
                         */
                         let cartId = res.dataValues.id
-                        console.log(cartId);
+                        
                         
                         let hasItem = await this.cartService.getCartItens( cartId )
-                        console.log(hasItem);
+                        
                         
                         if( hasItem.length == 0 ){
                             resolve({status: false, msg: 'O carrinho está vazio'})
                         }else{
-                            const valor_total = hasItem.map( cart => cart._produto.dataValues.preco).reduce( (prev, value)=> prev + value, 0 )
+                            const valor_total = hasItem.map( cart => cart._produto.dataValues.preco * cart.qtde).reduce( (prev, value)=> prev + value, 0 )
                             
                             if( valor_total < 10  ){
                                 resolve({status: false, msg: 'O valor total deve ser no mínimo R$ 10,00 '})
                             }else{
-                                this.pedido.valor_total = valor_total
+                                let taxa = this.calcularTaxa( hasItem.length )
+                                this.pedido.valor_total = valor_total + taxa
                                 this.pedido.status_id = 3
                                 this.pedido.usuario_id = usuario
+                                this.pedido.taxa_entrega = taxa
                                 //Salvando primeiro o pedido
                                 pedidoRepository
                                     .create( this.pedido )
                                     .then( response =>{
                                         const pedidoId = response.dataValues.id
+                                        
                                         const produtos: PedidoItens[]    = hasItem.map( cart => {
                                             return {
                                                 pedido_id: pedidoId,
@@ -51,7 +54,8 @@ class PedidoService {
                                                 qtde: cart.qtde
                                             }
                                         })
-                                        //Adicionando itens do pedido
+
+                                        //Adicionando itens ao pedido
                                         pedidoRepository
                                             .addItens( produtos )
                                             .then( _response =>{
@@ -130,10 +134,49 @@ class PedidoService {
     
     private _update(id: number){
         return pedidoRepository.update( id, this.pedido )
-
     }
 
+    paginate(limit: number, page: number ) {   
+        
+        return new Promise(async(resolve, reject)=>{
+            let pedidos: any = await pedidoRepository.paginate( limit, page )
+            
+            
+            let pedidosItens = pedidos.result.map( async p =>{                
+                
+                let itens = await pedidoRepository.getItens( p.id )
+                
+                let obj = {...p.dataValues, itens: itens.length > 0 ? itens : []}
+                
+                return obj
+            })
+            let dados = Promise.all( pedidosItens )
+            resolve( dados )
+        })
+    }
 
+    private calcularTaxa( qtde: number ){
+        console.log('qtde', qtde);
+        let values = []
+        let total = 0
+        for (let i = 0; i < qtde; i++) {
+            let j = i + 1
+            if(  j > 2 ){
+                let k = values[ i - 1 ]
+                let l = values[ i - 2 ]                
+                total =  l + k
+                values.push( total )                
+            }else{
+                if( j == 1 ){                                       
+                    values.push(2)
+                }else {
+                    values.push(3)
+                }
+            }
+            
+        }
+        return values[ values.length - 1 ]
+    }
 }
 
 export default PedidoService

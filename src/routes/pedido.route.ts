@@ -6,6 +6,7 @@ const router = Router()
 router.route('/').patch( PedidoController.finalizar )
 router.route('/').get( PedidoController.findAll )
 router.route('/:id').put( PedidoController.update )
+router.route('/paginate/:limit/:page').get( PedidoController.paginate )
 
 
 

@@ -17,9 +17,11 @@ class CarrinhoRepository {
     }
 
     create( carrinho: Carrinho ){
-        console.log(carrinho);
-        
         return CarrinhoModel.create( carrinho )
+    }
+
+    findByPK( id: number ){
+        return CarrinhoModel.findByPk( id )
     }
 
 
@@ -51,20 +53,7 @@ class CarrinhoRepository {
     }
 
     cleanCart( id: number ){
-        return new Promise((resolve, reject)=>{
-            /*Limpando primeiro os itens do carrinho */
-            CarrinhoProdutoModel
-                .destroy({where: {carrinho_id: id}})
-                .then( (retorno: any) =>{
-                    /* Removendo o carrinho */
-                    CarrinhoModel
-                        .destroy({where: {id}})
-                        .then( () =>{
-                            resolve({status: true})
-                        })
-                })
-
-        })
+        return CarrinhoModel.destroy({where: {id}})        
     }
 
 }
