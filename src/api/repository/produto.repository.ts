@@ -34,14 +34,20 @@ class ProdutoRepository {
         return new Promise((resolve, reject)=>{
             ProdutoModel
                 .findAndCountAll({
-                    where: {status_id: 1}
+                    where: {
+                        status_id: 1,
+                        isDeleted: 0
+                    }
                 })
                 .then( data =>{
                     let pages = Math.ceil(data.count / limit);
                     offset = limit * (page - 1);
                     ProdutoModel
                         .findAll({
-                            where: {status_id: 1},
+                            where: {
+                                status_id: 1,
+                                isDeleted: 0
+                            },
                             limit,
                             offset,
                             order: [
