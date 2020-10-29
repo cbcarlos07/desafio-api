@@ -20,9 +20,13 @@ PedidoModel.init( connection )
 PedidoItensModel.init( connection )
 UsuarioModel.init( connection )
 
+CarrinhoProdutoModel.removeAttribute("id")
 
-PedidoModel.associate( StatusModel )
+//Associações
+PedidoModel.associate( StatusModel, 'status_id', '_status' )
+PedidoModel.associate( UsuarioModel, 'usuario_id','_usuario' )
 PedidoItensModel.associate( ProdutoModel )
-ProdutoModel.associate( StatusModel )
-ProdutoModel.associate1( PedidoModel )
+ProdutoModel.associate( StatusModel, 'status_id', '_status' )
+CarrinhoModel.associate( UsuarioModel, 'usuario_id', '_usuario' )
+CarrinhoProdutoModel.associate( ProdutoModel, 'produto_id', '_produto' )
 export default connection

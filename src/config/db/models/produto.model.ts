@@ -18,33 +18,15 @@ class ProdutoModel extends Model {
         })
     }
 
-    static associate( model ){
-        this.belongsTo(
-            model,
-            {
-                as: '_status',
-                foreignKey: 'status_id'                
-            }
-        )
+    static associate(model, foreign: string, as: string){
+        this.belongsTo( model, {
+           foreignKey: {
+               name:  foreign
+           },
+           as
+       } ) 
     }
-
-    static associate1( model ){
-        
-            /*this.hasMany(
-                model,
-                { 
-                    as: 'itens',
-                    foreignKey: 'pedido_id',
-                    
-                }
-           )*/
-           this.belongsToMany( model,{
-            as: 'pedido',
-            through: PedidoItensModel,
-            foreignKey: 'produto_id'
-        } )
-        
-    }
+   
 }
 
 export default ProdutoModel

@@ -11,43 +11,62 @@ class PedidoService {
         this.pedido = pedidoDTO
     }
 
-    finalizar( cartId: number ){
-        console.log('cart', this.pedido);
-        return new Promise(async (resolve, reject)=>{
-            let hasItem = await this.cartService.getCartItens( cartId )            
-            if( hasItem.length == 0 ){
-                resolve({status: false, msg: 'O carrinho está vazio'})
-            }else{
-                const valor_total = hasItem.map( cart => cart.ProdutoModel.dataValues.preco).reduce( (prev, value)=> prev + value, 0 )
-               
-                
-                if( valor_total < 10  ){
-                    resolve({status: false, msg: 'O valor total deve ser no mínimo R$ 10,00 '})
-                }else{
-                    this.pedido.valor_total = valor_total
-                    this.pedido.status_id = 3
-                    pedidoRepository
-                        .create( this.pedido )
-                        .then( response =>{
-                            const pedidoId = response.dataValues.id
-                            const produtos: PedidoItens[]    = hasItem.map( cart => {
-                                return {
-                                    pedido_id: pedidoId,
-                                    produto_id: cart.produto_id,
-                                    preco: cart.ProdutoModel.dataValues.preco,
-                                    qtde: cart.qtde
-                                }
-                            })
-                            console.log('produtos', produtos);
-                            pedidoRepository
-                                .addItens( produtos )
-                                .then( _response =>{
-                                    this.cartService.cleanCart(cartId)
-                                    resolve({status: true, msg: 'Pedido Finalizdo com sucesso!'})
-                                })
-                        })
-                }
-            }
+    finalizar( usuario: number ){        
+        return new Promise( (resolve, reject)=>{
+            /* Verificar se o usuário tem carrinho */           
+            this.cartService
+                .getCartItensByUser( usuario )
+                .then( async res => {
+                    if( res ){            
+                        /* Se o usuário possui carrinho,
+                           Deve trazer os itens do carrinho
+                        */
+                        let cartId = res.dataValues.id
+                        console.log(cartId);
+                        
+                        let hasItem = await this.cartService.getCartItens( cartId )
+                        console.log(hasItem);
+                        
+                        if( hasItem.length == 0 ){
+                            resolve({status: false, msg: 'O carrinho está vazio'})
+                        }else{
+                            const valor_total = hasItem.map( cart => cart._produto.dataValues.preco).reduce( (prev, value)=> prev + value, 0 )
+                            
+                            if( valor_total < 10  ){
+                                resolve({status: false, msg: 'O valor total deve ser no mínimo R$ 10,00 '})
+                            }else{
+                                this.pedido.valor_total = valor_total
+                                this.pedido.status_id = 3
+                                this.pedido.usuario_id = usuario
+                                //Salvando primeiro o pedido
+                                pedidoRepository
+                                    .create( this.pedido )
+                                    .then( response =>{
+                                        const pedidoId = response.dataValues.id
+                                        const produtos: PedidoItens[]    = hasItem.map( cart => {
+                                            return {
+                                                pedido_id: pedidoId,
+                                                produto_id: cart.produto_id,
+                                                preco: cart._produto.dataValues.preco,
+                                                qtde: cart.qtde
+                                            }
+                                        })
+                                        //Adicionando itens do pedido
+                                        pedidoRepository
+                                            .addItens( produtos )
+                                            .then( _response =>{
+                                                this.cartService.cleanCart(cartId)
+                                                resolve({status: true, msg: 'Pedido Finalizdo com sucesso!'})
+                                            })
+                                    })
+                            }
+                        }
+
+                    }else{
+                        resolve({status: false, msg: 'Ainda não possui carrinho'})
+                    }
+
+                })
 
         })
         
@@ -61,8 +80,6 @@ class PedidoService {
                 let itens = await pedidoRepository.getItens( p.id )
                 
                 let obj = {...p.dataValues, itens: itens.length > 0 ? itens : []}
-                
-                console.log(obj);
                 
                 return obj
             })

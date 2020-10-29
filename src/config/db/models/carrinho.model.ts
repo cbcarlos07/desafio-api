@@ -11,6 +11,20 @@ class CarrinhoModel extends Model {
             sequelize 
         })
     }
+
+    static associate(model, foreign, alias){
+        
+         this.belongsTo( model, {
+            foreignKey: {
+                name:  foreign
+            },
+            as: alias
+        } ) 
+    }
+
+    
+
+     
 }
 
 export default CarrinhoModel

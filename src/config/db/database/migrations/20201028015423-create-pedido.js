@@ -40,7 +40,15 @@ module.exports = {
           onUpdate: 'NO ACTION',
           onDelete: 'NO ACTION',
           defaultValue: 1
-        }
+        },
+        usuario_id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          comment: 'Codigo do usuário',
+          references: { model: 'usuario', key: 'id' },
+          onUpdate: 'NO ACTION',
+          onDelete: 'NO ACTION'
+        },
       });
     
   },

@@ -11,7 +11,8 @@ class PedidoModel extends Model {
                 endereco_entrega: DataTypes.STRING,
                 dt_criacao: DataTypes.DATE,
                 valor_total: DataTypes.DOUBLE,
-                status_id: DataTypes.INTEGER
+                status_id: DataTypes.INTEGER,
+                usuario_id: DataTypes.INTEGER
             }, { 
                 tableName: 'pedido',
                 sequelize 
@@ -19,40 +20,33 @@ class PedidoModel extends Model {
         )
     }
 
-    static associate(model){
-       /* this.hasMany(
-                itens,
-                {
-                    as: 'itens',
-                    foreignKey: 'pedido_id',
-                    
-                }
-           )*/
-
+    /**
+     * Associação entre tabelas
+     * @param model 
+     * @param foreign 
+     * @param as 
+     */
+    static associate(model, foreign: string, as: string){
+     
        
         this.belongsTo( model, {
            foreignKey: {
-               name:  'status_id'
+               name:  foreign
            },
-           as: '_status'
+           as
        } ) 
     }
 
     static associateMany(model){
-        /*this.hasMany(
-            model,
-            { 
-                as: 'itens',
-                foreignKey: 'pedido_id',
-                
-            }
-       )*/
+        
        this.belongsToMany( model,{
-        as: 'produto',
-        through: PedidoItensModel,
-        foreignKey: 'pedido_id'
-    } )
+            as: 'produto',
+            through: PedidoItensModel,
+            foreignKey: 'pedido_id'
+        } )
     }
+
+    
 }
 
 export default PedidoModel

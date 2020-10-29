@@ -5,15 +5,56 @@ import { Produto } from "../model/produto";
 
 const { Sequelize } = require('sequelize')
 class ProdutoRepository {
+    productByName(nome: string) {
+        const _nome = `%${nome}%`
+        return ProdutoModel.findAll({
+            where: {
+                nome: {
+                    [Sequelize.Op.like]: _nome
+                }
+            }
+        })
+    }
+    productByTag(nome: string) {
+        const _nome = `%${nome}%`
+        return ProdutoModel.findAll({
+            where: {
+                tags: {
+                    [Sequelize.Op.like]: _nome
+                }
+            }
+        })
+    }
 
     /**
      * Retorna somente produtos ativos
      */
-    productForBuy() {
-        return ProdutoModel.findAll({
-            where: {
-                status_id: 1
-            }
+    productForBuy(limit: number, page: number ) {
+        
+        let offset = 0;
+        
+        
+        return new Promise((resolve, reject)=>{
+            ProdutoModel
+                .findAndCountAll({
+                    where: {status_id: 1}
+                })
+                .then( data =>{
+                    let pages = Math.ceil(data.count / limit);
+                    offset = limit * (page - 1);
+                    ProdutoModel
+                        .findAll({
+                            where: {status_id: 1},
+                            limit,
+                            offset,
+                            order: [
+                               [ 'nome','asc']
+                            ]
+                        }).then( dados =>{
+                            resolve({result: dados, count: data.count, pages})
+                        })
+                })
+
         })
     }
 

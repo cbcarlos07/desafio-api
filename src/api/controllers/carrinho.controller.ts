@@ -2,7 +2,7 @@
 
 import CarrinhoService from "../services/carrinho.service"
 
-import { Request, Response } from "express";
+import { Response } from "express";
 
 import * as jwt from 'jsonwebtoken'
 const environments = require('../../config/environments')
@@ -12,8 +12,7 @@ class CarrinhoController{
      * Adicionando primeiro produto no carrinho
      */
     create( req, resp: Response ){  
-        const token = req.headers['x-access-token']
-        
+        const token = req.headers['x-access-token']        
         const decoded: any = jwt.verify(token, environments.JWT_SECRET);
         //id = Id do Usuário
         const { id } = decoded

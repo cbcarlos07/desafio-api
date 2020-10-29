@@ -61,6 +61,10 @@ class CarrinhoService{
         return carrinhoRepository.getCartItens( cartId )
     }
 
+    getCartItensByUser( userId: number ){
+        return carrinhoRepository.getCartItensByUser( userId )
+    }
+
     cleanCart( id: number ){
         return carrinhoRepository.cleanCart( id )
     }

@@ -12,6 +12,24 @@ class CarrinhoProdutoModel extends Model {
             sequelize 
         })
     }
+
+    /**
+     * Associação entre tabelas
+     * @param model 
+     * @param foreign 
+     * @param alias 
+     */
+    static associate(model, foreign: string, alias: string){
+        
+        this.belongsTo( model, {
+           foreignKey: {
+               name:  foreign
+           },
+           as: alias
+       } ) 
+   }
+
+
 }
 
 

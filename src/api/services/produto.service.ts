@@ -33,10 +33,20 @@ class ProdutoService{
         return produtoRepository.testConnection()
     }
     /**
-     * Retorna somente produtos ativos
+     * Pesquisar produto para compra
+     * @param limit 
+     * @param page 
      */
-    productForBuy(){
-        return produtoRepository.productForBuy()
+    productForBuy(limit: number, page: number){
+        return produtoRepository.productForBuy(limit, page)
+    }
+
+    productByName( nome: string ){
+        return produtoRepository.productByName( nome )
+    }
+
+    productByTag(nome: string) {
+        return produtoRepository.productByTag( nome )
     }
 }
 

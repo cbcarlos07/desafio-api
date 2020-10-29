@@ -6,4 +6,5 @@ export interface Pedido{
     dt_criacao?: string
     valor_total?: number
     status_id: number
+    usuario_id: number
 }

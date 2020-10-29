@@ -8,4 +8,5 @@ export interface Produto{
     tags?: string
     status_id?: number
     isDeleted?: number
+    
 }

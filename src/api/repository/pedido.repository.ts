@@ -2,8 +2,6 @@ import PedidoModel from "../../config/db/models/pedido.model";
 import { Pedido } from "../model/pedido";
 import { PedidoItens } from "../model/pedido_itens";
 import PedidoItensModel from "../../config/db/models/pedido-itens.model";
-import ProdutoModel from "../../config/db/models/produto.model";
-import StatusModel from "../../config/db/models/status.model";
 const { Sequelize } = require("sequelize");
 
 
@@ -40,11 +38,16 @@ class PedidoRepository {
         return PedidoModel.findAll({
             attributes: [
                 'id', 'dt_criacao','valor_total',
-                [Sequelize.literal('_status.descricao'),'status']
+                [Sequelize.literal('_status.descricao'),'status'],
+                [Sequelize.literal('_usuario.nome'),'usuario']
             ],
             include: [
                 {
                     association: '_status',
+                    attributes: []
+                },
+                {
+                    association: '_usuario',
                     attributes: []
                 }
             ],
