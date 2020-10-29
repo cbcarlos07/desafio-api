@@ -35,6 +35,15 @@ Para configurar a expiração do carrinho de compras
 
 O banco de dados usado no projeto
 
+## <a id="base"> O Banco de Dados
+
+O Banco de dados utilizado no projeto foi o MySQL na versão 8.0.
+
+O repositório do Docker Compose do banco de dados utilizado encontra-se [aqui](https://github.com/cbcarlos07/docker-mysql)
+
+Na pasta db deste projeto encontram-se o MER (Modelo Entidade Relacionamento) e o arquivo sql.sql com inserts já realizados
+
+
 
 
 ## Script para inicialização do banco
@@ -68,7 +77,12 @@ https://medium.com/@diomalta/como-organizar-e-estruturar-projetos-com-node-js-48
 
     node_modules\.bin\sequelize db:migrate:undo
 
+### Apagar banco de dados
+
+    node_modules/.bin/sequelize db:drop
+
 ## Seed
+
 
 Criar
     node_modules/.bin/sequelize seed:generate --name=Usuario
