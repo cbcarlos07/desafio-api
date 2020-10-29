@@ -29,7 +29,7 @@ class UsuarioService{
                         
                         const token = jwt.sign( user, environments.JWT_SECRET, { expiresIn: 60 * 60 * 24 }  )
     
-                        resolve({msg: 'Usuário autenticado com sucesso!',token, status: true})
+                        resolve({token})
                     }else{
                         resolve({msg: 'Usuário não encontrado!', status: false})
                     }

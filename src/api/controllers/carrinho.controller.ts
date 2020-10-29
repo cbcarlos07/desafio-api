@@ -15,13 +15,14 @@ class CarrinhoController{
         const token = req.headers['x-access-token']
         
         const decoded: any = jwt.verify(token, environments.JWT_SECRET);
+        //id = Id do Usuário
         const { id } = decoded
-        console.log('Id do usuario:', id);
-        
+
         const { produto }  = req.body        
         const carrinhoService = new CarrinhoService(  )        
         const cartProduct = produto
-        carrinhoService.create( cartProduct )
+
+        carrinhoService.create( cartProduct, id )
                       .then( (response: any) =>{
                           resp.status(200).json( {msg: "Produto adicionado com suceso ao carrinho!", cartId: response.id} )
                       }).catch( e => {

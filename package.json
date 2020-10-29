@@ -8,7 +8,8 @@
     "table": "node_modules/.bin/sequelize db:migrate",
     "dev": "nodemon src/server.ts --exec ts-node",
     "db": "node_modules/.bin/sequelize db:create",
-    "seed": "node_modules/.bin/sequelize db:seed:all"
+    "seed": "node_modules/.bin/sequelize db:seed:all",
+    "base": "npm run db && npm run table && npm run seed"
   },
   "keywords": [],
   "author": "",

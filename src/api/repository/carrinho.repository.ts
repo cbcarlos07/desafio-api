@@ -9,13 +9,21 @@ import ProdutoModel from "../../config/db/models/produto.model";
 
 class CarrinhoRepository {
 
-    create( Carrinho: Carrinho ){
-        return CarrinhoModel.create( Carrinho )
+    create( carrinho: Carrinho ){
+        console.log(carrinho);
+        
+        return CarrinhoModel.create( carrinho )
     }
 
 
     findCart(  ){
         return CarrinhoModel.findOne()
+    }
+
+    findByUser( usuario_id: number ){
+        return CarrinhoModel.findOne({
+            where: {usuario_id}
+        })
     }
 
     addCart( carrinhoProduto: CarrinhoProduto ){

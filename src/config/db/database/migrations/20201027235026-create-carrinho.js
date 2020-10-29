@@ -17,7 +17,15 @@ module.exports = {
           type: Sequelize.DATE,
           allowNull: false,
           defaultValue: Sequelize.fn('now')
-        }
+        },
+        usuario_id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          comment: 'Codigo do usuário',
+          references: { model: 'usuario', key: 'id' },
+          onUpdate: 'NO ACTION',
+          onDelete: 'NO ACTION'
+        },
 
        });
     

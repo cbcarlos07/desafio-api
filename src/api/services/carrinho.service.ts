@@ -9,15 +9,16 @@ class CarrinhoService{
     
     }
 
-    create( carrinhoProduto: CarrinhoProduto ){
+    create( carrinhoProduto: CarrinhoProduto, usuario: number ){
         return new Promise((resolve, reject)=>{
             /*
             Adicionar produtos no carrinho
             Primeiro verificando se possui carrinho cadastrado
             */
             carrinhoRepository
-                .findCart()
-                .then( response =>{                    
+                .findByUser( usuario )
+                .then( response =>{                        
+                                    
                     if( response ){
                         const id = response.dataValues.id
                         carrinhoProduto.carrinho_id = id
@@ -28,8 +29,9 @@ class CarrinhoService{
                             })                        
                     }else{
                         //Se não possui carrinho: adicionar
+                                                
                         carrinhoRepository
-                            .create( {} )
+                            .create( {usuario_id: usuario} )
                             .then( _response =>{                                
                                 //Após adicionar carrinho, adicionar o produto ao carrinho                                
                                 const id = _response.dataValues.id
@@ -37,8 +39,6 @@ class CarrinhoService{
                                 carrinhoRepository
                                     .addCart( carrinhoProduto )
                                     .then( retorno =>{
-                                        
-                                        
                                         resolve({id})
                                     })
 

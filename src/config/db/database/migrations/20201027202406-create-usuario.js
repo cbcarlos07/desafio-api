@@ -38,6 +38,7 @@ module.exports = {
           allowNull: false,
           comment: 'Endereço do usuário'
         }
+       
       });
     
   },

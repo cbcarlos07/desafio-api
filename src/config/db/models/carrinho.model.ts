@@ -4,7 +4,8 @@ class CarrinhoModel extends Model {
 
     static init( sequelize ){
         super.init({
-            data: DataTypes.DATE,            
+            data: DataTypes.DATE,
+            usuario_id: DataTypes.INTEGER
         }, { 
             tableName: 'carrinho',
             sequelize 
