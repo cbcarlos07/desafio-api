@@ -12,6 +12,10 @@ https://medium.com/@diomalta/como-organizar-e-estruturar-projetos-com-node-js-48
 
 Seed
 
+Criar
+    node_modules/.bin/sequelize seed:generate --name=Usuario
+
+Inserir
     node_modules\.bin\sequelize db:seed:all
 
 Especificar

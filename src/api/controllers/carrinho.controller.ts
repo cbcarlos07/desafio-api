@@ -4,13 +4,20 @@ import CarrinhoService from "../services/carrinho.service"
 
 import { Request, Response } from "express";
 
-
+import * as jwt from 'jsonwebtoken'
+const environments = require('../../config/environments')
 class CarrinhoController{
     
     /**
      * Adicionando primeiro produto no carrinho
      */
-    create( req: Request, resp: Response ){    
+    create( req, resp: Response ){  
+        const token = req.headers['x-access-token']
+        
+        const decoded: any = jwt.verify(token, environments.JWT_SECRET);
+        const { id } = decoded
+        console.log('Id do usuario:', id);
+        
         const { produto }  = req.body        
         const carrinhoService = new CarrinhoService(  )        
         const cartProduct = produto

@@ -26,9 +26,7 @@ class ProdutoController{
         produto.id = id
         const produtoService = new ProdutoService( produto )
         produtoService.update()
-                      .then( response =>{ 
-                        console.log(response);
-                                 
+                      .then( response =>{          
                           resp.status(200).json( {msg: "Produto atualizado com sucesso!"} )
                       }).catch( e => {                          
                         resp.status(404).json( {msg: "Falha ao atualizar produto!"} )
@@ -37,11 +35,9 @@ class ProdutoController{
 
     destroy( req: Request, resp: Response ){
         const { id } = req.params        
-        const produtoService = new ProdutoService(  )
-        produtoService.destroy( Number( id ) )
+        const produtoService = new ProdutoService( {id, isDeleted: 1} )
+        produtoService.update(  )
                       .then( response =>{
-                        console.log(response);
-                        
                           resp.status(200).json( {msg: "Produto removido com sucesso!"} )
                       }).catch( e => {
                         resp.status(204).json( {msg: "Falha Produto removido!"} )

@@ -3,6 +3,7 @@ import ProdutoService from './api/services/produto.service'
 import bodyParser from 'body-parser'
 import cors from 'cors';
 import routerConfig from './routes'
+import jwtMiddleware from './utils/jwt';
 const environments = require('./config/environments')
 
 class Application{
@@ -18,8 +19,7 @@ class Application{
 
     listen(){
         require('./config/db/database')
-        let http = require("http").Server(this.app);
-        let io = require("socket.io")(http);
+        
 
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded( { extended:false } ));
@@ -29,8 +29,9 @@ class Application{
             .testConnection()
             .then(() => {
                 this.enableCors()
-                this.routes( io )
-                http.listen( this.port, () =>{
+                this.security()
+                this.routes(  )
+                this.app.listen( this.port, () =>{
                     console.log(`Api rodando da porta ${this.port}`);
                     
                 })
@@ -49,10 +50,20 @@ class Application{
 
     }
 
-    routes( io ){
+    security(){
+        const blocks = [
+            '/api/v1/produto/produtos/ativos',
+            '/api/v1/carrinho',
+            '/api/v1/pedido/finalizar/'
+        ]
+        this.app.use( jwtMiddleware( { blocks } ) )
+    }
+
+
+    routes(  ){
         let deps = {
-            app: this.app,
-            io
+            app: this.app
+            
         }
         routerConfig( deps )
     }

@@ -19,13 +19,7 @@ class ProdutoService{
         delete this.produto.id
         return produtoRepository.update(id, this.produto )
     }
-
-    async destroy( id: number ){
-        let produto = await this.findByPk( id )
-        console.log(produto);
-        
-        //return produtoRepository.destroy( id )
-    }
+    
 
     findAll(){
         return produtoRepository.findAll()

@@ -8,6 +8,7 @@ import CarrinhoProdutoModel from "../models/carrinho-produto.model"
 import CarrinhoModel from "../models/carrinho.model"
 import PedidoModel from "../models/pedido.model"
 import PedidoItensModel from "../models/pedido-itens.model"
+import UsuarioModel from "../models/usaurio.model"
 
 const connection = new Sequelize( dbConfig )
 
@@ -17,7 +18,7 @@ CarrinhoModel.init( connection )
 CarrinhoProdutoModel.init( connection )
 PedidoModel.init( connection )
 PedidoItensModel.init( connection )
-
+UsuarioModel.init( connection )
 
 
 PedidoModel.associate( StatusModel )
