@@ -75,6 +75,18 @@ class CarrinhoService{
     cleanCart( id: number ){
         return carrinhoRepository.cleanCart( id )
     }
+
+    removeProdutos( cartId ){
+        return carrinhoRepository.removeProdutos( cartId )
+    }
+
+    limparCarrinhoProdutos(){
+        return carrinhoRepository.limparCarrinhoProdutos()
+    }
+
+    limparCarrinho(){
+        return carrinhoRepository.limparCarrinho()
+    }
 }
 
 export default CarrinhoService

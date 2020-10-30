@@ -48,6 +48,10 @@ class ProdutoService{
     productByTag(nome: string) {
         return produtoRepository.productByTag( nome )
     }
+
+    truncate(){
+        return produtoRepository.truncate()
+    }
 }
 
 export default ProdutoService

@@ -24,13 +24,13 @@ class PedidoService {
                         let cartId = res.dataValues.id
                         
                         
-                        let hasItem = await this.cartService.getCartItens( cartId )
+                        let hasItem = await this.buscarItensDoCarrinho( cartId )
                         
                         
                         if( hasItem.length == 0 ){
                             resolve({status: false, msg: 'O carrinho está vazio'})
                         }else{
-                            const valor_total = hasItem.map( cart => cart._produto.dataValues.preco * cart.qtde).reduce( (prev, value)=> prev + value, 0 )
+                            const valor_total = this.calcularValorTotal(hasItem)
                             
                             if( valor_total < 10  ){
                                 resolve({status: false, msg: 'O valor total deve ser no mínimo R$ 10,00 '})
@@ -74,6 +74,20 @@ class PedidoService {
 
         })
         
+    }
+
+    buscarItensDoCarrinho( cartId ){
+        return this.cartService.getCartItens( cartId )
+    }
+
+    calcularValorTotal( hasItem ){
+        return hasItem
+            .map( 
+                    cart => cart._produto.dataValues.preco * cart.qtde
+                )
+            .reduce( 
+                (prev, value) => prev + value, 0 
+            )
     }
 
      findAll(){
@@ -155,8 +169,7 @@ class PedidoService {
         })
     }
 
-    private calcularTaxa( qtde: number ){
-        console.log('qtde', qtde);
+    calcularTaxa( qtde: number ){        
         let values = []
         let total = 0
         for (let i = 0; i < qtde; i++) {

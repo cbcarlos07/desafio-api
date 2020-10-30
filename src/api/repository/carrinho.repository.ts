@@ -56,6 +56,25 @@ class CarrinhoRepository {
         return CarrinhoModel.destroy({where: {id}})        
     }
 
+    removeProdutos( cartId ){
+        return CarrinhoProdutoModel.destroy({where: {carrinho_id: cartId}})
+    }
+
+    limparCarrinhoProdutos(){
+        
+        return    CarrinhoProdutoModel.destroy({ truncate : true, cascade: false })
+                
+        
+    }
+
+    limparCarrinho(){
+        return new Promise((resolve, reject)=>{
+            CarrinhoModel.destroy({ truncate : true, cascade: false })
+            .then( () => resolve())
+
+        })
+    }
+
 }
 
 export default new CarrinhoRepository

@@ -8,6 +8,8 @@
 ## [6. Lista do que foi feito](#list)
 ## [7. SOLID](#solid)
 ## [8. Sequelize](#sequelize)
+## [9. Testes Unitários](#test)
+## [10. Testes Rest](#rest)
 
 
 ## <a id="intro">1. Introdução
@@ -54,7 +56,7 @@ O repositório do Docker Compose do banco de dados utilizado encontra-se [aqui](
 
 Tenha o docker instalado antes
 
-Antes de executar o comando do dokcer-compose, primeiro crie a rede interna do docker:
+Antes de executar o comando do docker-compose, primeiro crie a rede interna do docker:
 
     docker network create -d bridge mysql-network
 
@@ -139,3 +141,20 @@ Desfazer Tudo
     node_modules\.bin\sequelize db:seed:undo:all
 
 [Voltar ao inicio](#begin)
+
+## <a id="test"> 9. Testes Unitários
+
+O pacote para os testes automáticos utilizado foi o [Ava](https://www.npmjs.com/package/ava)
+
+Para executar os testes, basta dar o comando na raiz do projeto
+
+    npm test
+
+
+## <a id="rest"> 10. Testes Rest    
+
+Para o teste de API foi usada a ferramenta [Insomnia](https://insomnia.rest/download/)
+
+Na pasta [rest](https://github.com/cbcarlos07/desafio-api/tree/master/rest) deste projeto tem o arquivo com os testes
+
+Basta importar dentro da ferramenta o arquivo `json` e as requisiçoes estão prontas

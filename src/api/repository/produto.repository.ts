@@ -73,6 +73,10 @@ class ProdutoRepository {
         return ProdutoModel.destroy( {where: {id}} )
     }
 
+    truncate( ){
+        return ProdutoModel.destroy({ truncate : true, cascade: false })
+    }
+
     findAll(){
         return ProdutoModel.findAll({
             attributes: [
