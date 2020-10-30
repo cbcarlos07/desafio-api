@@ -114,31 +114,31 @@ Este projeto foi baseado na arquitetura SOLID de acordo com [este artigo](https:
 
 * <b>Migrate</b>
 
-    node_modules\.bin\sequelize migration:create --name=create-status
+        node_modules\.bin\sequelize migration:create --name=create-status
 
-    node_modules\.bin\sequelize db:migrate:undo
+        node_modules\.bin\sequelize db:migrate:undo
 
 * <b>Apagar banco de dados</b>
 
-    node_modules/.bin/sequelize db:drop
+        node_modules/.bin/sequelize db:drop
 
 * <b>Seed</b>
 
 Criar
-    node_modules/.bin/sequelize seed:generate --name=Usuario
+        node_modules/.bin/sequelize seed:generate --name=Usuario
 
 Inserir
-    node_modules\.bin\sequelize db:seed:all
+        node_modules\.bin\sequelize db:seed:all
 
 Especificar
 
-    node_modules\.bin\sequelize db:seed --seed src\config\db\database\seeders\20201027185507-Produto.js
+        node_modules\.bin\sequelize db:seed --seed src\config\db\database\seeders\20201027185507-Produto.js
 
 Desfazer
-    node_modules\.bin\sequelize db:seed:undo
+        node_modules\.bin\sequelize db:seed:undo
 
 Desfazer Tudo
-    node_modules\.bin\sequelize db:seed:undo:all
+        node_modules\.bin\sequelize db:seed:undo:all
 
 [Voltar ao inicio](#begin)
 
