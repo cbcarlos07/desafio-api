@@ -23,8 +23,7 @@ class UsuarioService{
             usuarioRepository
                 .auth( dados )
                 .then( response =>{
-                    if( response ){
-                        console.log(response);
+                    if( response ){                        
                         const  user: Usuario = response.dataValues
                         
                         const token = jwt.sign( user, environments.JWT_SECRET, { expiresIn: 60 * 60 * 24 }  )

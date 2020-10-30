@@ -51,8 +51,6 @@ class ProdutoController{
 		.then( response =>{                         
 			resp.status(200).json( response )
 		}).catch( e => {
-			console.log(e);
-			
 			resp.status(204).json( {msg: "Falha em buscar produto!"} )
 		})
 	}
@@ -70,7 +68,7 @@ class ProdutoController{
 	
 	productForBuy( req: Request, resp: Response ){
 		const produtoService = new ProdutoService(  )
-		const { limit, page } = req.params
+		const { limit, page } = req.params	
 		produtoService.productForBuy( +limit, +page )
 		.then( response =>{
 			resp.status(200).json( response )

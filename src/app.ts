@@ -4,7 +4,9 @@ import bodyParser from 'body-parser'
 import cors from 'cors';
 import routerConfig from './routes'
 import jwtMiddleware from './utils/jwt';
+import * as swaggerUi from 'swagger-ui-express'
 const environments = require('./config/environments')
+import { swaggerDocument } from './openapi/swagger'
 
 class Application{
     app: express.Application
@@ -65,6 +67,7 @@ class Application{
             app: this.app
             
         }
+        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
         routerConfig( deps )
     }
 }
