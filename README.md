@@ -10,6 +10,7 @@
 ## [8. Sequelize](#sequelize)
 ## [9. Testes Unitários](#test)
 ## [10. Testes Rest](#rest)
+## [11. Segurança](#seg)
 
 
 ## <a id="intro">1. Introdução
@@ -163,6 +164,14 @@ Para o teste de API foi usada a ferramenta [Insomnia](https://insomnia.rest/down
 Na pasta [rest](https://github.com/cbcarlos07/desafio-api/tree/master/rest) deste projeto tem o arquivo com os testes
 
 Basta importar dentro da ferramenta o arquivo `json` e as requisiçoes estão prontas
+
+[Voltar ao inicio](#begin)
+
+## <a id="seg"> 10. Segurança
+
+O tipo de criptografia usada no projeto para codificar a senha é a do pacote [md5](https://www.npmjs.com/package/md5)
+
+Espera-se que a senha já senha criptografa a partir do frontend, para em caso de interceptação, a mesma não seja descoberta
 
 [Voltar ao inicio](#begin)
 
