@@ -1,7 +1,7 @@
 import { Carrinho } from "../model/carrinho"
 import carrinhoRepository from "../repository/carrinho.repository"
 import { CarrinhoProduto } from "../model/carrinho_produto"
-import agendamento from '../../utils/schedule'
+import agendamento from '../../jobs/schedule'
 
 class CarrinhoService{
     
