@@ -165,3 +165,7 @@ Na pasta [rest](https://github.com/cbcarlos07/desafio-api/tree/master/rest) dest
 Basta importar dentro da ferramenta o arquivo `json` e as requisiçoes estão prontas
 
 [Voltar ao inicio](#begin)
+
+## OpenAPI
+
+https://medium.com/wolox/documenting-a-nodejs-rest-api-with-openapi-3-swagger-5deee9f50420
