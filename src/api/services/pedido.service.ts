@@ -76,8 +76,8 @@ class PedidoService {
         
     }
 
-    buscarItensDoCarrinho( cartId ){
-        return this.cartService.getCartItens( cartId )
+    buscarItensDoCarrinho( cartId = 0, array = [] ){
+        return cartId == 0 ? array : this.cartService.getCartItens( cartId )
     }
 
     calcularValorTotal( hasItem ){

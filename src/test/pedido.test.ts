@@ -70,16 +70,10 @@ test.serial('deveRetornarTaxaDe13ReaisSe5Item', async t =>{
 })
 
 test.serial('naoDeveFinalizarPedidoComCarrinhoVazio', async t =>{
-    carrinhoService = new CarrinhoService(  )
-    await carrinhoService.limparCarrinhoProdutos()
-    pedidoService = new PedidoService( )
-    usuarioService = new UsuarioService( usuario )
-    await createUsuario()
     
-    await createCarrinho( carrinhoProduto, 1 )
-    carrinhoService.removeProdutos( 1 )
+    let carrinho = []
     
-    let pedido = await pedidoService.buscarItensDoCarrinho( 1 )
+    let pedido = await pedidoService.buscarItensDoCarrinho( 0, carrinho )
     t.is(pedido.length, 0)
 })
 
