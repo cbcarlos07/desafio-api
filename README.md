@@ -125,9 +125,11 @@ Este projeto foi baseado na arquitetura SOLID de acordo com [este artigo](https:
 * <b>Seed</b>
 
 Criar
+        
         node_modules/.bin/sequelize seed:generate --name=Usuario
 
 Inserir
+        
         node_modules\.bin\sequelize db:seed:all
 
 Especificar
@@ -135,9 +137,11 @@ Especificar
         node_modules\.bin\sequelize db:seed --seed src\config\db\database\seeders\20201027185507-Produto.js
 
 Desfazer
+        
         node_modules\.bin\sequelize db:seed:undo
 
 Desfazer Tudo
+        
         node_modules\.bin\sequelize db:seed:undo:all
 
 [Voltar ao inicio](#begin)
