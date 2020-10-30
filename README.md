@@ -189,4 +189,7 @@ Para acessar é preciso digitar na url o seguinte endereço
 
 Segue token de exemplo para liberação da rota
 
+
+![alt text](https://github.com/cbcarlos07/desafio-api/blob/master/src/openapi/openapi.JPG)
+
 Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tZSI6Ikdpc2VseSBCcml0byIsImVtYWlsIjoiZ3lzYUBtYWlsLmNvbSIsInRlbGVmb25lIjoiOTI5ODg4ODg4ODgiLCJlbmRlcmVjbyI6IlIuIExhZ29yYSBBenVsLCAyNSIsImlhdCI6MTYwNDA1ODM2Nn0._eMgRw9lsTsTI9mBawLYzvnJfqZGfp7FaHfBMQ74JF4
