@@ -11,6 +11,7 @@
 ## [9. Testes Unitários](#test)
 ## [10. Testes Rest](#rest)
 ## [11. Segurança](#seg)
+## [12. Open API](#open)
 
 
 ## <a id="intro">1. Introdução
@@ -179,7 +180,7 @@ Espera-se que a senha já senha criptografa a partir do frontend, para em caso d
 
 [Voltar ao inicio](#begin)
 
-## <a id="open" >OpenAPI
+## <a id="open" >11. OpenAPI
 
 A documentação foi feita baseada apenas em algumas rotas do módulo produto
 
