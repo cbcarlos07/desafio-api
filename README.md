@@ -156,6 +156,8 @@ Para executar os testes, basta dar o comando na raiz do projeto
 
     npm test
 
+![alt text](https://github.com/cbcarlos07/desafio-api/blob/master/src/test/test.JPG)
+
 [Voltar ao inicio](#begin)
 
 ## <a id="rest"> 10. Testes Rest    
